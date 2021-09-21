@@ -2,6 +2,9 @@ var time = document.querySelector('#timer');
 var startBtn = document.querySelector('#start')
 var questionsContainer = document.querySelector('#questions-container');
 var questionEl = document.querySelector('#questions');
+var pEl = document.querySelector('p');
+var userInput = document.querySelector('#userInitials');
+var submitBtn = document.querySelector('#submit');
 var questionNum = 0;
 var timeLeft = 75;
 var score = 0;
@@ -32,8 +35,8 @@ function startTimer() {
 function startQuiz(){
     startBtn.setAttribute('style', 'display:none')
     questionsContainer.setAttribute('style', 'display:block')
-    document.querySelector('p').setAttribute('style', 'display:none');
-    questionEl.textContent = questionsArr[questionNum];
+    pEl.setAttribute('style', 'display:none');
+    
     renderOptions();
     startTimer();
 
@@ -41,6 +44,7 @@ function startQuiz(){
 
 function renderOptions(){
     questionsContainer.innerHTML="";
+    questionEl.textContent = questionsArr[questionNum];
     for(var i =0; i < 4; i++){
         var li = document.createElement('li');
         li.textContent = optionsArr[questionNum][i];
@@ -50,12 +54,26 @@ function renderOptions(){
     }
 }
 
+function gameFinished(){
+    questionsContainer.setAttribute('style', 'display:none');
+    questionEl.textContent = "Finished!"
+    pEl.textContent = "Your final score is: " + score;
+    questionEl.setAttribute('style', 'display:block');
+    pEl.setAttribute('style' , 'display:block');
+    userInput.setAttribute('style', 'display:inline-block');
+    submitBtn.setAttribute('style', 'display:inline-block');
+
+
+
+}
+
 
 
 
 
 startBtn.addEventListener('click', startQuiz);
 questionsContainer.addEventListener('click', function(event){
+    event.preventDefault();
     var element = event.target;
     console.log(event);
 
@@ -64,20 +82,30 @@ questionsContainer.addEventListener('click', function(event){
         var index = element.getAttribute("data-index");
         console.log(questionNum);
         console.log(index);
-        if (questionNum === 0 && index == 1){
-            score += 10;
-            questionNum++;
-            console.log(score);
-        } 
-    }    
-})
-/*questionsContainer.addEventListener('click', function(event){
-    var element = event.target;
-})
-if (questionNum === 0 && element.matches(choiceB)){
-    score += 10;
-    questionNum++;
-    
+        //if (questionNum < 5){
+            if ((questionNum === 0 && index == 1) || 
+            (questionNum === 1 && index == 2) || 
+            (questionNum === 2 && index == 0) || 
+            (questionNum === 3 && index == 0) || 
+            (questionNum === 4 && index == 3)){
+                score += 10;
+                questionNum++;
+                if (questionNum === 5) {gameFinished();}
+                 else{renderOptions();
+                console.log(score);}
+            } else {
+                timeLeft -= 10;
+                questionNum++;
+                if (questionNum === 5) {gameFinished();}
+                else {renderOptions();}
+                
+            }
 }
+})
+submitBtn.addEventListener('click', function(event){
+    event.preventDefault();
+    var initials = document.querySelector('#userInitials').value;
 
-*/
+    localStorage.setItem(initials, score);
+    
+})
