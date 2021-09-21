@@ -1,0 +1,21 @@
+body {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin-top:120px;
+}
+
+section{
+    margin:auto;
+    text-align: center;
+    
+}
+
+ul{
+    list-style-type: none;
+    display:none;
+}
+
+.class{
+    width:30%
+}
