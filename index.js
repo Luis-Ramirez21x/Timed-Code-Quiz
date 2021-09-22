@@ -8,6 +8,9 @@ var submitBtn = document.querySelector('#submit');
 var questionNum = 0;
 var timeLeft = 75;
 var score = 0;
+var initials = JSON.parse(localStorage.getItem('initials'));
+var highscores = JSON.parse(localStorage.getItem('score'));
+var objectIndex = 0;
 var questionsArr = ['The process of restructuring computer code without changing or adding to its external behavior and functionality is known as _____. ',
     'Which of the following correctly declares a variable with a number value?',
     'Which of the following will correctly call upon this id in JS on this code <button id = ”start”></button>?', 
@@ -20,6 +23,8 @@ var optionsArr = [
     ['Square Brackets' , 'Parentheses' , 'Dashes', 'Angle Brackets'],
     ['event`(stopPropogation());' , 'event.preventHateCrimes();' , 'There is no way to stop bubbling', 'event.stopPropagation();'],
 ]
+
+
 
 function startTimer() {
     var timeInterval = setInterval(function() {
@@ -62,14 +67,11 @@ function gameFinished(){
     pEl.setAttribute('style' , 'display:block');
     userInput.setAttribute('style', 'display:inline-block');
     submitBtn.setAttribute('style', 'display:inline-block');
-
-
-
 }
 
+function storeHighscores(){
 
-
-
+}
 
 startBtn.addEventListener('click', startQuiz);
 questionsContainer.addEventListener('click', function(event){
@@ -98,14 +100,24 @@ questionsContainer.addEventListener('click', function(event){
                 questionNum++;
                 if (questionNum === 5) {gameFinished();}
                 else {renderOptions();}
-                
             }
 }
 })
 submitBtn.addEventListener('click', function(event){
     event.preventDefault();
-    var initials = document.querySelector('#userInitials').value;
+    initials[initials.length] = document.querySelector('#userInitials').value;
+    highscores[highscores.length] = score.toString();
 
-    localStorage.setItem(initials, score);
-    
+    localStorage.setItem('initials', JSON.stringify(initials));
+    localStorage.setItem('score', JSON.stringify(highscores));
+
+
 })
+
+    /*initials[objectIndex] = document.querySelector('#userInitials').value;
+    highscores[objectIndex] = score.toString();
+    objectIndex++;
+    
+
+    localStorage.setItem('initials', JSON.stringify(initials));
+    localStorage.setItem('score', JSON.stringify(highscores));*/
