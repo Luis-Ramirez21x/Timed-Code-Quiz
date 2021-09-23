@@ -1,8 +1,14 @@
 var clearBtn = document.querySelector('#clear-highscores');
 var scoresContainer = document.querySelector('#highscores-container');
-var storedNames = JSON.parse(localStorage.getItem('initials'));
-var storedScores = JSON.parse(localStorage.getItem('score'));
+var newName = JSON.parse(localStorage.getItem('initials'));
+var newScore = JSON.parse(localStorage.getItem('score'));
+var storedNames=[];
+var storedScores= [];
 var clearArr = [];
+
+storedNames[storedNames.length]= newName;
+storedScores[storedScores.length] = newScore;
+
 
 function displayScores(){
     scoresContainer.setAttribute('style', 'display:block');
@@ -11,7 +17,7 @@ function displayScores(){
         var li = document.createElement('li');
         li.textContent = storedNames[i] + ' - ' + storedScores[i];
         scoresContainer.appendChild(li);
-        console.log(li);
+        
     }
 }
 

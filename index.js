@@ -1,3 +1,4 @@
+
 var time = document.querySelector('#timer');
 var startBtn = document.querySelector('#start')
 var questionsContainer = document.querySelector('#questions-container');
@@ -8,6 +9,9 @@ var submitBtn = document.querySelector('#submit');
 var questionNum = 0;
 var timeLeft = 75;
 var score = 0;
+var testarr= [];
+localStorage.setItem('initials', JSON.stringify(testarr));
+localStorage.setItem('score', JSON.stringify(testarr));
 var initials = JSON.parse(localStorage.getItem('initials'));
 var highscores = JSON.parse(localStorage.getItem('score'));
 var objectIndex = 0;
@@ -118,3 +122,5 @@ submitBtn.addEventListener('click', function(event){
 
 
 })
+
+
