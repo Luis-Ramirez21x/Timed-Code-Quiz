@@ -28,11 +28,16 @@ var optionsArr = [
 
 function startTimer() {
     var timeInterval = setInterval(function() {
-        if (timeLeft > 0){
+        if (questionNum ===5){
+            clearInterval(timeInterval);
+            time.textContent = "";
+        } else if (timeLeft > 0){
             time.textContent = timeLeft;
             timeLeft--;
         } else {
             clearInterval(timeInterval);
+            time.textContent = "";
+            gameFinished();
         }
     },1000 )
 }
@@ -92,7 +97,7 @@ questionsContainer.addEventListener('click', function(event){
             (questionNum === 4 && index == 3)){
                 score += 10;
                 questionNum++;
-                if (questionNum === 5) {gameFinished();}
+                if (questionNum === 5) {gameFinished(); }
                  else{renderOptions();
                 console.log(score);}
             } else {
@@ -113,11 +118,3 @@ submitBtn.addEventListener('click', function(event){
 
 
 })
-
-    /*initials[objectIndex] = document.querySelector('#userInitials').value;
-    highscores[objectIndex] = score.toString();
-    objectIndex++;
-    
-
-    localStorage.setItem('initials', JSON.stringify(initials));
-    localStorage.setItem('score', JSON.stringify(highscores));*/
